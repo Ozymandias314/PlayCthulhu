@@ -1,2 +1,0 @@
-# PlayCthulhu
-Created with CodeSandbox
