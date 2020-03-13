@@ -7,7 +7,8 @@ export default function App() {
       <h1>Cthulhu!</h1>
       <h2>
         Start waht editing to see some magic happen! MAGIC MAGIC now I change
-        something here and I will cahnge it again and again and again
+        something here and I will cahnge it again and again and again what do i
+        want to do
       </h2>
     </div>
   );
