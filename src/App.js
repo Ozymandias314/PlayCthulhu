@@ -1,6 +1,8 @@
 import React from "react";
 import "./styles.css";
 
+import firebase from "./firebase";
+
 import IndexPage from "./pages/IndexPage";
 import RulesPage from "./pages/RulesPage";
 import LobbyPage from "./pages/LobbyPage";
