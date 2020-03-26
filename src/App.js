@@ -14,10 +14,7 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    console.log("calling the first hook");
-    if (uid) console.log("wtfff");
     if (!uid) {
-      console.log("well definitely here");
       firebase
         .auth()
         .signInAnonymously()
@@ -26,41 +23,32 @@ export default function App() {
         });
     }
     return firebase.auth().onAuthStateChanged(user => {
-      console.log("inside the return");
       if (user) {
-        console.log("hello user was true");
       }
       if (user) {
         // User is signed in.
-        console.log(user.uid);
         setUid(user.uid);
-        console.log(uid);
       } else {
         // User is signed out.
-        console.log("here please right");
         setUid(null);
       }
-      console.log(user);
     });
   }, [uid]);
 
   useEffect(() => {
-    console.log("inside hook 2");
     if (!uid) {
-      console.log("this should happen...once?");
       setUser(null);
       return;
     }
-    console.log("after hook 1 is called a second time");
     const userRef = firebase.database().ref(`/users/${uid}`);
     function update(snapshot) {
       if (snapshot.exists()) {
         setUser({ ...snapshot.val(), id: uid });
       } else {
         userRef.set({
-          games: {}
+          games: {},
           // color: generateColor(),
-          //  name: generateName()
+          name: "hi"
         });
       }
     }
