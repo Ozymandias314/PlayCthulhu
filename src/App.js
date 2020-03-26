@@ -14,7 +14,10 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    console.log("calling the first hook");
+    if (uid) console.log("wtfff");
     if (!uid) {
+      console.log("well definitely here");
       firebase
         .auth()
         .signInAnonymously()
@@ -22,33 +25,38 @@ export default function App() {
           alert("Unable to connect to the server. Please try again later.");
         });
     }
-    console.log("here" + user);
     return firebase.auth().onAuthStateChanged(user => {
+      console.log("inside the return");
+      if (user) {
+        console.log("hello user was true");
+      }
       if (user) {
         // User is signed in.
+        console.log(user.uid);
         setUid(user.uid);
+        console.log(uid);
       } else {
         // User is signed out.
         console.log("here please right");
         setUid(null);
       }
+      console.log(user);
     });
   }, [uid]);
 
   useEffect(() => {
-    console.log("here?");
+    console.log("inside hook 2");
     if (!uid) {
-      console.log("oh here");
+      console.log("this should happen...once?");
       setUser(null);
       return;
     }
+    console.log("after hook 1 is called a second time");
     const userRef = firebase.database().ref(`/users/${uid}`);
     function update(snapshot) {
       if (snapshot.exists()) {
-        console.log("fine here");
         setUser({ ...snapshot.val(), id: uid });
       } else {
-        console.log("are we ever here");
         userRef.set({
           games: {}
           // color: generateColor(),
@@ -61,20 +69,6 @@ export default function App() {
       userRef.off("value", update);
     };
   }, [uid]);
-
-  const userRef = firebase.database().ref(`/users/${uid}`);
-
-  if (snapshot.exists()) {
-    console.log("fine here");
-    setUser({ ...snapshot.val(), id: uid });
-  } else {
-    console.log("are we ever here");
-    userRef.set({
-      games: {}
-      // color: generateColor(),
-      //  name: generateName()
-    });
-  }
 
   return (
     <Router>
