@@ -9,6 +9,8 @@ import LobbyPage from "./pages/LobbyPage";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import { generateName } from "./util";
+
 export default function App() {
   const [uid, setUid] = useState(null);
   const [user, setUser] = useState(null);
@@ -48,8 +50,9 @@ export default function App() {
         userRef.set({
           games: {},
           // color: generateColor(),
-          name: "hi"
+          name: generateName()
         });
+        console.log(generateName());
       }
     }
     userRef.on("value", update);
